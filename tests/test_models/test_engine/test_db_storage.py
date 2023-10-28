@@ -103,9 +103,9 @@ class TestFileStorage(unittest.TestCase):
     def test_count(self):
         """Test that count properly counts objects in database"""
         storage = db_storage.DBStorage()
-        l = len(storage.all().values())
-        self.assertEqual(l, storage.count())
+        all = len(storage.all().values())
+        self.assertEqual(all, storage.count())
         for key, value in classes.items():
             with self.subTest(key=key, value=value):
-                l = len(storage.all(value).values())
-                self.assertEqual(l, storage.count(value))
+                all = len(storage.all(value).values())
+                self.assertEqual(all, storage.count(value))
