@@ -80,10 +80,8 @@ class DBStorage:
         """
            module
         """
-        if cls not in classes.keys():
+        if cls.__name__ not in classes.keys():
             return None
-
-        cls = classes[cls]
 
         try:
             return self.__session.query(cls).filter_by(id=id).one_or_none()
@@ -96,7 +94,7 @@ class DBStorage:
         """
         if cls is None:
             return len(models.storage.all("").values())
-        elif cls not in classes.keys():
+        elif cls.__name__ not in classes.keys():
             return 0
         else:
             return len(models.storage.all(cls).values())
