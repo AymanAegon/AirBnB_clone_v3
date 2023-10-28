@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''
+app for registering blueprint and starting flask
+'''
 from flask import Flask
 from api.v1.views import app_views
 from models import storage
