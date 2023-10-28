@@ -93,7 +93,7 @@ class DBStorage:
             number of objects
         """
         if cls is None:
-            return len(models.storage.all("").values())
+            return len(models.storage.all().values())
         elif cls.__name__ not in classes.keys():
             return 0
         else:
