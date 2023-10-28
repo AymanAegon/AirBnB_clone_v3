@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from flask import Flask
 from api.v1.views import app_views
 from models import storage
@@ -19,4 +20,3 @@ if __name__ == "__main__":
     
     # Run the Flask server
     app.run(host=host, port=port, threaded=True)
-

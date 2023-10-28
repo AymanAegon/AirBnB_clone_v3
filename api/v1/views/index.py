@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from . import app_views
 from flask import jsonify
 
@@ -8,4 +9,3 @@ def api_status():
     Return the status of your API
     """
     return jsonify({"status": "OK"})
-
