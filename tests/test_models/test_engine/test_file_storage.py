@@ -125,7 +125,7 @@ class TestFileStorage(unittest.TestCase):
                 instance = value()
                 storage.new(instance)
                 self.assertEqual(instance, storage.get(instance.id))
-    
+
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_count_f(self):
         """Tests the number of objects in storage matching the given class
@@ -138,11 +138,10 @@ class TestFileStorage(unittest.TestCase):
                 count += 1
         self.assertEqual(count, self.storage.count('State'))
         self.assertEqual(None, self.storage.count(Fclass))
-    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")          
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_count_method_wf(self):
-        """Tests Returns the number of objects in storage matching the given class
-           without a cls
+        """Tests Returns the number of objects in storage matching the
+           given class without a cls
         """
         self.assertEqual(len(self.storage.all()), self.storage.count())
-
-
