@@ -12,10 +12,6 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
-<<<<<<< HEAD
-=======
-
->>>>>>> 32dbd9f (de)
 
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
@@ -35,7 +31,6 @@ def api_stats():
     """
         return the number of objects
     """
-<<<<<<< HEAD
     dic = {
         "amenities": storage.count(Amenity),
         "cities": storage.count(City),
@@ -45,9 +40,3 @@ def api_stats():
         "users": storage.count(User)
     }
     return jsonify(dic)
-=======
-    dict={}
-    for key,value in classes.items():
-        dict[key] = storage.count(value)
-    return jsonify({dict})
->>>>>>> 32dbd9f (de)
