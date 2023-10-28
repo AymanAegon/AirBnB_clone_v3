@@ -17,7 +17,6 @@ classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
 
 
-
 # Define a route for /status
 @app_views.route('/status', methods=['GET'], strict_slashes=False)
 def api_status():
@@ -27,12 +26,12 @@ def api_status():
     return jsonify({"status": "OK"})
 
 
-@app_views.route('/stats',methods=['GET'], strict_slashes=False)
+@app_views.route('/stats', methods=['GET'], strict_slashes=False)
 def api_stats():
     """
         return the number of objects
     """
-    dic={}
-    for key,value in classes.items():
+    dic = {}
+    for key, value in classes.items():
         dic[key] = storage.count(value)
     return jsonify(dic)
