@@ -119,7 +119,7 @@ class TestFileStorage(unittest.TestCase):
         """Test that get properly gets object from file.json"""
         storage = FileStorage()
         self.assertEqual(None, storage.get(None, ""))
-        self.assertEqual(None, storage.get(State))
+        self.assertEqual(None, storage.get(State, ""))
         for key, value in classes.items():
             with self.subTest(key=key, value=value):
                 instance = value()
