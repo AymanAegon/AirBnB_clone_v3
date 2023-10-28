@@ -5,7 +5,13 @@ views
 from . import app_views
 from flask import jsonify
 from models import storage
-
+from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
@@ -26,7 +32,7 @@ def api_stats():
     """
         return the number of objects
     """
-    dict={}
+    dic={}
     for key,value in classes.items():
-        dict[key] = value.count()
-    return jsonify({"status": "OK"})
+        dic[key] = storage.count(value)
+    return jsonify(dic)
