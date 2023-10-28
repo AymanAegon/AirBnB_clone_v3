@@ -3,6 +3,7 @@
 app for registering blueprint and starting flask
 '''
 from flask import Flask
+from flask import jsonify
 from api.v1.views import app_views
 from models import storage
 from os import getenv
@@ -16,6 +17,11 @@ app.register_blueprint(app_views)
 @app.teardown_appcontext
 def teardown_db(exception):
     storage.close()
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return jsonify({"error": "Not found"}), 404
 
 
 if __name__ == "__main__":
