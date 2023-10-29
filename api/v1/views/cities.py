@@ -16,7 +16,7 @@ def cities_by_state(state_id):
     all_cities = storage.all(City).values()
     for city in all_cities:
         if state_id == city.state_id:
-            arr.append(city)
+            arr.append(city.to_dict())
     if len(arr) != 0:
         return jsonify(arr)
     else:
@@ -54,7 +54,7 @@ def create_city(state_id):
     """Creates a city object
         Returns: the new city
     """
-    state = storage.get(State, state)
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
     content = request.get_json(silent=True)
