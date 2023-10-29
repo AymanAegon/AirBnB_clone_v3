@@ -73,38 +73,26 @@ def update_place(place_id):
         return not_found(404)
 
 
-@app_views.route(
-    '/cities/<city_id>/places', methods=['POST'], strict_slashes=False)
+@app_views.route('/cities/<city_id>/places', methods=['POST'],
+                 strict_slashes=False)
 def create_place(city_id):
-    """Creates a place
-    """
-    city = storage.get('City', city_id)
-    error_message = ""
-    if city:
-        content = request.get_json(silent=True)
-        if type(content) is dict:
-            if "user_id" in content.keys():
-                user = storage.get('User', content['user_id'])
-                if user:
-                    if "name" in content.keys():
-                        place = Place(**content)
-                        place.city_id = city_id
-                        storage.new(place)
-                        storage.save()
-                        response = jsonify(place.to_dict())
-                        response.status_code = 201
-                        return response
-                    else:
-                        error_message = "Missing name"
-                else:
-                    return not_found(404)
-            else:
-                error_message = "Missing user_id"
-        else:
-            error_message = "Not a JSON"
-
-        response = jsonify({"error": error_message})
-        response.status_code = 400
-        return response
+    '''
+        create new place
+    '''
+    if not request.get_json():
+        return jsonify({"error": "Not a JSON"}), 400
+    elif "name" not in request.get_json():
+        return jsonify({"error": "Missing name"}), 400
+    elif "user_id" not in request.get_json():
+        return jsonify({"error": "Missing user_id"}), 400
     else:
-        return not_found(404)
+        obj_data = request.get_json()
+        city = storage.get("City", city_id)
+        user = storage.get("User", obj_data['user_id'])
+        if city is None or user is None:
+            abort(404)
+        obj_data['city_id'] = city.id
+        obj_data['user_id'] = user.id
+        obj = Place(**obj_data)
+        obj.save()
+        return jsonify(obj.to_dict()), 201
