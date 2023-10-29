@@ -25,7 +25,7 @@ class User(BaseModel, Base):
         first_name = ""
         last_name = ""
 
-        @property
+    @property
     def password(self):
         '''
             md5 password
