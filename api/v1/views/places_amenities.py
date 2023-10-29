@@ -18,6 +18,9 @@ def amenity_by_place(place_id):
         place = storage.get(Place, place_id)
         if place is None:
             abort(404)
-        print(place)
+        arr = []
+        for amenity in place.amenities:
+            arr.append(amenity.to_dict())
+        return jsonify(arr)
     else:
-        pass
+        abort(404)
