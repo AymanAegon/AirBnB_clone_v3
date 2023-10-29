@@ -7,6 +7,7 @@ from models.place import Place
 from models.city import City
 
 
+
 @app_views.route(
     '/cities/<city_id>/places', methods=['GET'], strict_slashes=False)
 def show_places(city_id):
@@ -28,7 +29,7 @@ def show_places(city_id):
 def delete_place(place_id):
     """Deletes place
     """
-    place = storage.get('Place', place_id)
+    place = storage.get(Place, place_id)
     if place:
         storage.delete(place)
         storage.save()
@@ -41,7 +42,7 @@ def delete_place(place_id):
 def show_place(place_id):
     """Shows places
     """
-    place = storage.get('Place', place_id)
+    place = storage.get(Place, place_id)
     if place:
         return jsonify(place.to_dict())
     else:
@@ -54,7 +55,7 @@ def update_place(place_id):
     """
     Updates a place
     """
-    place = storage.get('Place', place_id)
+    place = storage.get(Place, place_id)
     if place:
         content = request.get_json(silent=True)
         if type(content) is dict:
