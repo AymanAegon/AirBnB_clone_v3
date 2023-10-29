@@ -11,6 +11,7 @@ app = Flask(__name__)
 
 # Register Blueprint
 app.register_blueprint(app_views)
+cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 
 
 # Teardown app context to close the database connection
