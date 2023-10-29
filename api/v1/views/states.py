@@ -1,4 +1,4 @@
-!/usr/bin/python3
+#!/usr/bin/python3
 """States API routes"""
 from models.state import State
 from models import storage
@@ -6,14 +6,12 @@ from api.v1.views import app_views
 from flask import jsonify, request, abort
 
 
-
-
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def show_state(state_id):
     """Shows a specific state based on id from storage
            Parameters:
     """
-    state = storage.get('State', state_id)
+    state = storage.get(State, state_id)
     if state:
         return jsonify(state.to_dict())
     else:
@@ -24,7 +22,7 @@ def show_state(state_id):
 def show_states():
     """Shows all states in storage
     """
-    states = list(storage.all('State').values())
+    states = list(storage.all(State).values())
     states_array = []
     for state in states:
         states_array.append(state.to_dict())
@@ -36,7 +34,7 @@ def show_states():
 def delete_state(state_id):
     """Deletes a specific state based on id from storage
     """
-    state = storage.get('State', state_id)
+    state = storage.get(State, state_id)
     if state:
         storage.delete(state)
         storage.save()
@@ -73,7 +71,7 @@ def create_state():
 def update_state(state_id):
     """Updates an existing state object based on id
     """
-    state = storage.get('State', state_id)
+    state = storage.get(State, state_id)
     error_message = ""
     if state:
         content = request.get_json(silent=True)
@@ -89,5 +87,4 @@ def update_state(state_id):
             response = jsonify({'error': error_message})
             response.status_code = 400
             return response
-
     abort(404)
