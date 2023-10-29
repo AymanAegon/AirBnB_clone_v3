@@ -5,6 +5,7 @@ from flask import jsonify, request
 from api.v1.views import app_views
 from api.v1.app import not_found
 from models.place import Place
+from models import City
 
 
 @app_views.route(
@@ -13,7 +14,7 @@ def show_places(city_id):
     """
            A list of JSON dictionaries of all places in a city
     """
-    city = storage.get('City', city_id)
+    city = storage.get(City, city_id)
     places_list = []
     if city:
         for place in city.places:
