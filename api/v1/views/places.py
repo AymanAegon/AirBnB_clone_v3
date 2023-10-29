@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 """Places API routes"""
 from models import storage
-from flask import jsonify, request
+from flask import jsonify, request, abort
 from api.v1.views import app_views
-from api.v1.app import not_found
 from models.place import Place
 
 
@@ -20,7 +19,7 @@ def show_places(city_id):
             places_list.append(place.to_dict())
         return jsonify(places_list)
     else:
-        return not_found(404)
+        return abort(404)
 
 
 
@@ -34,7 +33,7 @@ def delete_place(place_id):
         storage.save()
         return jsonify({})
     else:
-        return not_found(404)
+        return abort(404)
 
 
 @app_views.route('/places/<place_id>', methods=['GET'], strict_slashes=False)
@@ -45,7 +44,7 @@ def show_place(place_id):
     if place:
         return jsonify(place.to_dict())
     else:
-        return not_found(404)
+        return abort(404)
 
 
 
@@ -70,7 +69,7 @@ def update_place(place_id):
             response.status_code = 400
             return response
     else:
-        return not_found(404)
+        return abort(404)
 
 
 @app_views.route('/cities/<city_id>/places', methods=['POST'],
