@@ -108,10 +108,16 @@ def places_search():
     if not request.get_json():
         return jsonify({"error": "Not a JSON"}), 400
     result = []
-    states = request.get_json()["states"]
-    cities = request.get_json()["cities"]
-    amenities = request.get_json()["amenities"]
-    all_places = storage.all(Place).keys()
+    states = []
+    cities = []
+    amenities = []
+    if "states" in request.get_json():
+        states = request.get_json()["states"]
+    if "cities" in request.get_json():
+        cities = request.get_json()["cities"]
+    if "amenities" in request.get_json():
+        amenities = request.get_json()["amenities"]
+    all_places = storage.all(Place).values()
     for place in all_places:
         city_of_place = storage.get(City, place.city_id)
         if states is None or len(states) == 0:
