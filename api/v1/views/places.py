@@ -148,7 +148,3 @@ def places_search():
     for place in result:
         arr.append(place.to_dict())
     return jsonify(arr)
-<<<<<<< HEAD
-
-=======
->>>>>>> c7fbae21582782a57d36708bd2a46af04bc5db8a
