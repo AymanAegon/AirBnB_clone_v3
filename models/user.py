@@ -30,11 +30,11 @@ class User(BaseModel, Base):
         '''
             md5 password
         '''
-        return self._password
+        return self.password
 
     @password.setter
     def password(self, value):
         '''
            hash the password
         '''
-        self._password = hashlib.md5(value.encode('utf8')).hexdigest()
+        self.password = hashlib.md5(value.encode('utf8')).hexdigest()
