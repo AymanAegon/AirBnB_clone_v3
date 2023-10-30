@@ -25,16 +25,8 @@ class User(BaseModel, Base):
         first_name = ""
         last_name = ""
 
-    @property
-    def password(self):
-        '''
-            md5 password
-        '''
-        return self.password
-
-    @password.setter
-    def password(self, value):
-        '''
-           hash the password
-        '''
-        self.password = hashlib.md5(value.encode('utf8')).hexdigest()
+    def __setattr__(self, name, value):
+        """set the password with hash"""
+        if name == "password":
+            value = hashlib.md5(value.encode()).hexdigest()
+        super().__setattr__(name, value)
