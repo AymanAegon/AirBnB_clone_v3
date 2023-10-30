@@ -13,14 +13,14 @@ def cities_by_state(state_id):
     """Retrieves the list of all City objects of a State
     """
     arr = []
+    state = storage.get(State, state_id)
+    if state is None:
+        abort(404)
     all_cities = storage.all(City).values()
     for city in all_cities:
         if state_id == city.state_id:
             arr.append(city.to_dict())
-    if len(arr) != 0:
-        return jsonify(arr)
-    else:
-        abort(404)
+    return jsonify(arr)
 
 
 @app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
