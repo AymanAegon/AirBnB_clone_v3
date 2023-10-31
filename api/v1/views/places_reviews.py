@@ -15,7 +15,7 @@ def get_reviews(place_id):
     """
     place = storage.get(Place, place_id)
     if not place:
-        return abort(404)
+        abort(404)
     arr = []
     for review in place.reviews:
         arr.append(review.to_dict())
