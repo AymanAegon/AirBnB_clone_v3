@@ -92,7 +92,7 @@ def update_review(review_id):
         response = jsonify({'error': "Not a JSON"})
         response.status_code = 400
         return response
-    for key, value in content:
+    for key, value in content.items():
         ignore = ["id", "user_id", "place_id", "created_at", "updated_at"]
         if key not in ignore:
             setattr(review, key, value)
